@@ -16,6 +16,10 @@
 // get random number from [0,max)
 R = function(m) {return Math.floor(Math.random()*m)}
 
+// is p (2-int array) on (x,y)
+on = function(p,x,y){
+  return p[0]==x&&p[1]==y?1:0
+}
 var BG='#111'
 var FG='#fff'
 var W=H=60,H=30   // width,height
