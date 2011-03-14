@@ -29,6 +29,7 @@ var FG='#fff'
 var W=H=60,H=30   // width,height
 var p=[15,15]     // player position
 var N=M=[]        // map
+var EN=[]         // enemies [[x,y],...]
 var WW=30,WH=15   // w,h of window into the map
 
 
@@ -52,6 +53,8 @@ redraw = function() {
     S+='\n'
     for(j = MAX( p[0] - DIV(WW,2) , 0 ) ; j < p[0] + DIV(WW,2) ; j++) {
       e=' '
+      for(k=0;k<10;k++)
+        if ( on( EN[k], j, i ) ) e=k
       S+=!M[i] ? ' ' : M[i][j]?'#':on(p,j,i)?'@':e
     }
   }
@@ -63,8 +66,13 @@ regen = function(){
   for(i=0;i<H;i++){M[i][0]=1;M[i][W-1]=1;} // fill borders
   for(i=0;i<W;i++){M[0][i]=1;M[H-1][i]=1;} // same
 
-  for(r = 0; r < 7; r++){
-    redraw()
+  EN=[]
+
+  for(r = 0; r < 10; r++){
+
+    EN[r] = [R(W),R(H)]
+
+    // redraw()
     // alert('redraw')
     N=[]
     for(i=0;i<H;i++) {
