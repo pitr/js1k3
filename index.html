@@ -29,6 +29,8 @@ var FG='#fff'
 var W=H=60,H=30   // width,height
 var p=[15,15]     // player position
 var N=M=[]        // map
+var WW=30,WH=15   // w,h of window into the map
+
 
 onkeydown=function(e){
   e=e.keyCode
@@ -37,13 +39,14 @@ onkeydown=function(e){
 
   if(e>=37&&e<=40)redraw()
 }
-redraw = function(){
-  S='<pre>'
-  for(i=0;i<H;i++) {
-    for(j=0;j<W;j++) {
-      S+=M[i][j]?'#':(p[1]==i&&p[0]==j)?'@':' '
-    }
+redraw = function() {
+  S='<pre>Exp: '+E
+  for(i = MAX( p[1] - DIV(WH,2) , 0 ) ; i < p[1] + DIV(WH,2) ; i++) {
     S+='\n'
+    for(j = MAX( p[0] - DIV(WW,2) , 0 ) ; j < p[0] + DIV(WW,2) ; j++) {
+      e=' '
+      S+=!M[i] ? ' ' : M[i][j]?'#':on(p,j,i)?'@':e
+    }
   }
   b.innerHTML=S
 }
