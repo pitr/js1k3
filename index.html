@@ -13,26 +13,21 @@
 // abbreviate canvas methods
 // for($ in a)a[$[0]+($[6]||'')]=a[$]
 
+var A=Math
+var H=100         // width,height
+var p=[50,50]     // player position
+var X=0           // Experience
+var N=M=[]        // map
+var E=[]          // enemies [[x,y],...]
+var w=30,h=15     // w,h of window into the map
+var D=10          // depth of CA + number of enemies
+
 // get random number from [0,max)
-R = function(m) {return Math.floor(Math.random()*m)}
-// MAX value
-MAX = function(a,b) {return Math.max(a,b)}
+R = function(m) {return A.floor(A.random()*m)}
 // integer division
 DIV = function(a,b) {return ~~(a/b)}
-
 // is p (2-int array) on (x,y)
-on = function(p,x,y){
-  return p[0]==x&&p[1]==y?1:0
-}
-var BG='#111'
-var FG='#fff'
-var W=100,H=100   // width,height
-var p=[50,50]     // player position
-var E=0           // Experience
-var N=M=[]        // map
-var EN=[]         // enemies [[x,y],...]
-var WW=30,WH=15   // w,h of window into the map
-var DEPTH=10       // depth of CA + number of enemies
+o = function(p,x,y){return p[0]==x&&p[1]==y?1:0}
 
 onkeydown=function(e){
   e=e.keyCode
@@ -44,10 +39,10 @@ onkeydown=function(e){
     // if can move
     p = !M[q[1]][q[0]] ? q : p
 
-    for(k=0;k<DEPTH;k++)
-      if(on(EN[k],p[0],p[1])) {
-        E+=k
-        EN[k] = [R(W),R(H)]
+    for(k=0;k<D;k++)
+      if(o(E[k],p[0],p[1])) {
+        X+=k
+        E[k] = [R(H),R(H)]
       }
 
     redraw()
@@ -55,41 +50,41 @@ onkeydown=function(e){
   }
 }
 redraw = function() {
-  S='<pre>Exp: '+E
-  for(i = MAX( p[1] - DIV(WH,2) , 0 ) ; i < p[1] + DIV(WH,2) ; i++) {
+  S='<pre>Exp: '+X
+  for(i = A.max( p[1] - DIV(h,2) , 0 ) ; i < p[1] + DIV(h,2) ; i++) {
     S+='\n'
-    for(j = MAX( p[0] - DIV(WW,2) , 0 ) ; j < p[0] + DIV(WW,2) ; j++) {
+    for(j = A.max( p[0] - DIV(w,2) , 0 ) ; j < p[0] + DIV(w,2) ; j++) {
       e=' '
-      for(k=0;k<DEPTH;k++)
-        if ( on( EN[k], j, i ) ) e=k
-      S+=!M[i] ? ' ' : M[i][j]?'#':on(p,j,i)?'@':e
+      for(k=0;k<D;k++)
+        if ( o( E[k], j, i ) ) e=k
+      S+=!M[i] ? ' ' : M[i][j]?'#':o(p,j,i)?'@':e
     }
   }
   b.innerHTML=S
 }
 // regenerate the map
 regen = function(){
-  for(i=0;i<H;i++){M[i]=[];for(j=0;j<W;j++){M[i][j]=(R(100)<40)?1:0}}
-  for(i=0;i<H;i++){M[i][0]=1;M[i][W-1]=1;} // fill borders
-  for(i=0;i<W;i++){M[0][i]=1;M[H-1][i]=1;} // same
+  for(i=0;i<H;i++){M[i]=[];for(j=0;j<H;j++){M[i][j]=(R(100)<40)?1:0}}
+  for(i=0;i<H;i++){M[i][0]=1;M[i][H-1]=1;} // fill borders
+  for(i=0;i<H;i++){M[0][i]=1;M[H-1][i]=1;} // same
 
-  EN=[]
+  E=[]
 
-  for(r = 0; r < DEPTH; r++){
+  for(r = 0; r < D; r++){
 
-    EN[r] = [R(W),R(H)]
+    E[r] = [R(H),R(H)]
 
     // redraw()
     // alert('redraw')
     N=[]
     for(i=0;i<H;i++) {
       N[i]=[]
-      for(j=0;j<W;j++) {
+      for(j=0;j<H;j++) {
         s=0
         for(n=-1;n<2;n++)for(m=-1;m<2;m++){
           s += !M[i+n] ? 1 : (mn=M[i+n][j+m]) ? 1 : mn!=!1
         }
-        N[i][j] = on(p,j,i) ? 0 : s > 5 || (r < 5 && !s)
+        N[i][j] = o(p,j,i) ? 0 : s > 5 || (r < 5 && !s)
       }
     }
     M=N
