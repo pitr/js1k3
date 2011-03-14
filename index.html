@@ -32,7 +32,7 @@ var E=0           // Experience
 var N=M=[]        // map
 var EN=[]         // enemies [[x,y],...]
 var WW=30,WH=15   // w,h of window into the map
-
+var DEPTH=10       // depth of CA + number of enemies
 
 onkeydown=function(e){
   e=e.keyCode
@@ -44,6 +44,12 @@ onkeydown=function(e){
     // if can move
     p = !M[q[1]][q[0]] ? q : p
 
+    for(k=0;k<DEPTH;k++)
+      if(on(EN[k],p[0],p[1])) {
+        E+=k
+        EN[k] = [R(W),R(H)]
+      }
+
     redraw()
     return false;
   }
@@ -54,7 +60,7 @@ redraw = function() {
     S+='\n'
     for(j = MAX( p[0] - DIV(WW,2) , 0 ) ; j < p[0] + DIV(WW,2) ; j++) {
       e=' '
-      for(k=0;k<10;k++)
+      for(k=0;k<DEPTH;k++)
         if ( on( EN[k], j, i ) ) e=k
       S+=!M[i] ? ' ' : M[i][j]?'#':on(p,j,i)?'@':e
     }
@@ -69,7 +75,7 @@ regen = function(){
 
   EN=[]
 
-  for(r = 0; r < 10; r++){
+  for(r = 0; r < DEPTH; r++){
 
     EN[r] = [R(W),R(H)]
 
