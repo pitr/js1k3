@@ -82,7 +82,7 @@ regen = function(){
         for(n=-1;n<2;n++)for(m=-1;m<2;m++){
           s += !M[i+n] ? 1 : (mn=M[i+n][j+m]) ? 1 : mn!=!1
         }
-        N[i][j] = s > 5 || (r < 5 && !s)
+        N[i][j] = on(p,j,i) ? 0 : s > 5 || (r < 5 && !s)
       }
     }
     M=N
