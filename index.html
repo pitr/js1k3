@@ -42,7 +42,7 @@ onkeydown=function(e){
     for(k=0;k<D;k++)
       if(o(E[k],p[0],p[1])) {
         X+=k
-        E[k] = [R(H),R(H)]
+        do{E[k]=[R(H),R(H)]}while(M[E[k][1]][E[k][0]])
       }
 
     redraw()
@@ -72,7 +72,8 @@ regen = function(){
 
   for(r = 0; r < D; r++){
 
-    E[r] = [R(H),R(H)]
+    // put point on an empty place
+    do{E[r]=[R(H),R(H)]}while(M[E[r][1]][E[r][0]])
 
     // redraw()
     // alert('redraw')
