@@ -70,10 +70,10 @@ regen = function(){
 
   E=[]
 
-  for(r = 0; r < D; r++){
+  for(k = 0; k < D; k++){
 
     // put point on an empty place
-    do{E[r]=[R(H),R(H)]}while(M[E[r][1]][E[r][0]])
+    do{E[k]=[R(H),R(H)]}while(M[E[k][1]][E[k][0]])
 
     // redraw()
     // alert('redraw')
@@ -85,7 +85,7 @@ regen = function(){
         for(n=-1;n<2;n++)for(m=-1;m<2;m++){
           s += !M[i+n] ? 1 : (mn=M[i+n][j+m]) ? 1 : mn!=!1
         }
-        N[i][j] = o(p,j,i) ? 0 : s > 5 || (r < 5 && !s)
+        N[i][j] = o(p,j,i) ? 0 : s > 5 || (k < 5 && !s)
       }
     }
     M=N
