@@ -23,7 +23,7 @@ var w=30,h=15     // w,h of window into the map
 var D=10          // depth of CA + number of enemies
 
 // get random number from [0,max)
-R = function(m) {return A.floor(A.random()*m)}
+R = function(m) {return~~(A.random()*m)}
 // integer division
 DIV = function(a,b) {return ~~(a/b)}
 // is p (2-int array) on (x,y)
