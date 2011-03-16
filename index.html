@@ -15,12 +15,15 @@
 
 var A=Math
 var H=100         // width,height
-var p=[50,50]     // player position
+var p=[50,50]     // player's position
+var F=G=0         // player's position increaser
+var f,g           // temp for F,G
 var X=0           // Experience
 var N=M=[]        // map
 var E=[]          // enemies [[x,y],...]
 var w=30,h=15     // w,h of window into the map
 var D=10          // depth of CA + number of enemies
+var I=J=10        // pet coordinates
 
 // get random number from [0,max)
 R = function(m) {return~~(A.random()*m)}
@@ -29,24 +32,18 @@ DIV = function(a,b) {return ~~(a/b)}
 // is p (2-int array) on (x,y)
 o = function(p,x,y){return p[0]==x&&p[1]==y?1:0}
 
-onkeydown=function(e){
+onkeyup=onkeydown=function(e){
+  m=e.type[5]?1:0
   e=e.keyCode
+
   if(e>=37&&e<=40){
-    q=p.slice()
-    q[0]+=(e^37?e^39?0:1:-1)
-    q[1]+=(e^38?e^40?0:1:-1)
+    f=(e^37?e^39?F:m:-m)
+    g=(e^38?e^40?G:m:-m)
 
     // if can move
-    p = !M[q[1]][q[0]] ? q : p
+    if( !M[p[1]+g][p[0]+f] ){ F=f ; G=g }
 
-    for(k=0;k<D;k++)
-      if(o(E[k],p[0],p[1])) {
-        X+=k
-        do{E[k]=[R(H),R(H)]}while(M[E[k][1]][E[k][0]])
-      }
-
-    redraw()
-    return false;
+    return false
   }
 }
 redraw = function() {
@@ -93,6 +90,22 @@ regen = function(){
 }
 regen()
 redraw()
+
+setInterval(function(){
+  if( !M[p[1]+G][p[0]+F] ){
+    if( F!=0 || G!=0 )
+      console.log(F,G)
+    p[0]+=F
+    p[1]+=G
+    for(k=0;k<D;k++)
+      if(o(E[k],p[0],p[1])) {
+        X+=k
+        do{E[k]=[R(H),R(H)]}while(M[E[k][1]][E[k][0]])
+      }
+  }
+
+  redraw()
+},100)
     </script>
   </body>
 </html>
