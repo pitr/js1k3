@@ -21,7 +21,6 @@ var N=M=[]        // map
 var E=[]          // enemies [[x,y],...]
 var w=30,h=15     // w,h of window into the map
 var D=10          // depth of CA + number of enemies
-var C=I=J=50      // rock monster coordinates and move counter
 
 // get random number from [0,max)
 R = function(m) {return~~(A.random()*m)}
@@ -36,14 +35,6 @@ onkeydown=function(e){
     q=p.slice()
     q[0]+=(e^37?e^39?0:1:-1)
     q[1]+=(e^38?e^40?0:1:-1)
-
-    // move monster
-    if (++C%2){
-      M[J][I]=0
-      I+=R(3)-1
-      J+=R(3)-1
-      M[J][I]=1
-    }
 
     // if can move
     p = !M[q[1]][q[0]] ? q : p
