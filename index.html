@@ -39,6 +39,7 @@ onkeydown=function(e){
     // if can move
     p = !M[q[1]][q[0]] ? q : p
 
+    // collect and regenerate points
     for(k=0;k<D;k++)
       if(o(E[k],p[0],p[1])) {
         X+=k
