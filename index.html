@@ -54,11 +54,12 @@ onkeydown=function(e){
         do{E[k]=[R(H),R(H)]}while(M[E[k][1]][E[k][0]])
       }
 
-    redraw()
+    O()
     return false;
   }
 }
-redraw = function() {
+// redraw
+O = function() {
   S='<pre>Exp: '+X
   for(i = A.max( p[1] - DIV(h,2) , 0 ) ; i < p[1] + DIV(h,2) ; i++) {
     S+='\n'
@@ -102,7 +103,7 @@ for(k = 0; k < D; k++){
   }
   M=N
 }
-redraw()
+O()
     </script>
   </body>
 </html>
