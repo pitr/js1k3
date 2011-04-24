@@ -35,7 +35,7 @@ onkeydown=function(e){
     q[1]+=(e^38?e^40?0:1:-1)
 
     // if can move
-    p = !M[q[1]][q[0]] ? q : p
+    p = M[q[1]][q[0]] ? p : q
 
     // collect and regenerate points
     for(k=0;k<D;k++)
@@ -61,7 +61,7 @@ for(i=0;i<H;i++)
   M[i][0]=M[i][H-1]=  // fill borders with 1s
   M[0][i]=M[H-1][i]=1 // same
 
-E=[]
+E=[] // point coordinates (eg. point 3 is E[3] === [14,5])
 
 for(k=0;k<D;k++){
 
