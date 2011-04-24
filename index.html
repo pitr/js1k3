@@ -73,9 +73,8 @@ for(k=0;k<D;k++){
     N[i]=[]
     for(j=0;j<H;j++) {
       s=0
-      for(n=-1;n<2;n++)for(m=-1;m<2;m++){
+      for(n=-1;n<2;n++)for(m=-1;m<2;m++)
         s += !M[i+n] ? 1 : (mn=M[i+n][j+m]) ? 1 : mn!=!1
-      }
       N[i][j] = s > 5 || (k < 5 && !s)
     }
   }
