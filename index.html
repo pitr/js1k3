@@ -48,20 +48,6 @@ onkeydown=function(e){
     return false;
   }
 }
-// redraw
-O = function() {
-  S='<pre>Exp: '+X
-  for(i = A.max( p[1] - DIV(h,2) , 0 ) ; i < p[1] + DIV(h,2) ; i++) {
-    S+='\n'
-    for(j = A.max( p[0] - DIV(w,2) , 0 ) ; j < p[0] + DIV(w,2) ; j++) {
-      e=' '
-      for(k=1;k<D;k++)
-        if ( o( E[k], j, i ) ) e=k
-      S+=!M[i] ? ' ' : M[i][j]?'#':o(p,j,i)?'@':e
-    }
-  }
-  b.innerHTML=S
-}
 // regenerate the map
 
 for(i=0;i<H;i++){
@@ -93,7 +79,21 @@ for(k = 0; k < D; k++){
   }
   M=N
 }
-O()
+// redraw
+(O=function() {
+  S='<pre>Exp: '+X
+  for(i = A.max( p[1] - DIV(h,2) , 0 ) ; i < p[1] + DIV(h,2) ; i++) {
+    S+='\n'
+    for(j = A.max( p[0] - DIV(w,2) , 0 ) ; j < p[0] + DIV(w,2) ; j++) {
+      e=' '
+      for(k=1;k<D;k++)
+        if ( o( E[k], j, i ) ) e=k
+      S+=!M[i] ? ' ' : M[i][j]?'#':o(p,j,i)?'@':e
+    }
+  }
+  b.innerHTML=S
+})()
+
     </script>
   </body>
 </html>
