@@ -11,21 +11,21 @@
     </script>
     <script>
 
-var A=Math
-var H=100         // width,height
-var p=[50,50]     // player position
-var X=0           // Experience
-var N=M=[]        // map
-var E=[]          // enemies [[x,y],...]
-var w=30,h=15     // w,h of window into the map
-var D=10          // depth of CA + number of enemies
+A=Math
+,H=100          // width,height
+,p=[50,50]      // player position
+,X=0            // Experience
+,N=M=           // map
+E=[]            // point coordinates (eg. point 3 is E[3] === [14,5])
+,w=30,h=15      // w,h of window into the map
+,D=10           // depth of CA + number of enemies
 
 // get random number from [0,max)
-R = function(m) {return~~(A.random()*m)}
+R=function(m){return~~(A.random()*m)}
 // integer division
-V = function(a,b) {return ~~(a/b)}
+V=function(a,b){return~~(a/b)}
 // is p (2-int array) on (x,y)
-o = function(p,x,y){return p[0]^x|p[1]^y?0:1}
+o=function(p,x,y){return p[0]^x|p[1]^y?0:1}
 
 onkeydown=function(e){
   e=e.keyCode
@@ -35,7 +35,7 @@ onkeydown=function(e){
     q[1]+=(e^38?e^40?0:1:-1)
 
     // if can move
-    p = M[q[1]][q[0]] ? p : q
+    p=M[q[1]][q[0]]?p:q
 
     // collect and regenerate points
     for(k=0;k<D;k++)
@@ -61,8 +61,6 @@ for(i=0;i<H;i++)
   M[i][0]=M[i][H-1]=  // fill borders with 1s
   M[0][i]=M[H-1][i]=1 // same
 
-E=[] // point coordinates (eg. point 3 is E[3] === [14,5])
-
 for(k=0;k<D;k++){
 
   // put point on an empty place
@@ -71,10 +69,9 @@ for(k=0;k<D;k++){
   N=[]
   for(i=0;i<H;i++) {
     N[i]=[]
-    for(j=0;j<H;j++) {
+    for(j=0;j<H;j++){
       s=0
-      for(n=-1;n<2;n++)for(m=-1;m<2;m++)
-        s += !M[i+n] ? 1 : (mn=M[i+n][j+m]) ? 1 : mn!=!1
+      for(n=-1;n<2;n++)for(m=-1;m<2;m++)s+=!M[i+n]?1:(mn=M[i+n][j+m])?1:mn!=!1
       N[i][j]=i>>3^6|j>>3^6&&s>5|k<5&!s
     }
   }
@@ -83,13 +80,12 @@ for(k=0;k<D;k++){
 // redraw
 (O=function() {
   S='<pre style=width:180pt;height:170pt;background:#444;color:#eee>Exp: '+X
-  for(i = A.max( p[1] - V(h,2) , 0 ) ; i < p[1] + V(h,2) ; i++) {
+  for(i=A.max(p[1]-V(h,2),0);i<p[1]+V(h,2);i++){
     S+='\n'
-    for(j = A.max( p[0] - V(w,2) , 0 ) ; j < p[0] + V(w,2) ; j++) {
+    for(j=A.max(p[0]-V(w,2),0);j<p[0]+V(w,2);j++){
       e=' '
-      for(k=1;k<D;k++)
-        if ( o( E[k], j, i ) ) e=k
-      S += o(p,j,i) ? '@' : !M[i] ? ' ' : M[i][j] ? '#' : e
+      for(k=1;k<10;k++)if(o(E[k],j,i))e=k
+      S+=o(p,j,i)?'@':!M[i]?' ':M[i][j]?'#':e
     }
   }
   b.innerHTML=S
