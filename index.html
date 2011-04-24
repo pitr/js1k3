@@ -29,7 +29,7 @@ o = function(p,x,y){return p[0]==x&&p[1]==y?1:0}
 
 onkeydown=function(e){
   e=e.keyCode
-  if(e>=37&&e<=40){
+  if(e>36&e<41){
     q=p.slice()
     q[0]+=(e^37?e^39?0:1:-1)
     q[1]+=(e^38?e^40?0:1:-1)
