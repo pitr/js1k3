@@ -89,7 +89,7 @@ for(k=0;k<D;k++){
       e=' '
       for(k=1;k<D;k++)
         if ( o( E[k], j, i ) ) e=k
-      S+=!M[i] ? ' ' : M[i][j]?'#':o(p,j,i)?'@':e
+      S += o(p,j,i) ? '@' : !M[i] ? ' ' : M[i][j] ? '#' : e
     }
   }
   b.innerHTML=S
