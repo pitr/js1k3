@@ -22,8 +22,6 @@ E=[]            // point coordinates (eg. point 3 is E[3] === [14,5])
 
 // get random number from [0,max)
 R=function(m){return~~(A.random()*m)}
-// integer division
-V=function(a,b){return~~(a/b)}
 // is p (2-int array) on (x,y)
 o=function(p,x,y){return p[0]^x|p[1]^y?0:1}
 
@@ -76,9 +74,9 @@ for(k=0;k<D;k++){
 // redraw
 (O=function() {
   S='<pre style=width:240pt;height:170pt;background:#444;color:#eee>Exp: '+X
-  for(i=A.max(p[1]-V(h,2),0);i<p[1]+V(h,2);i++){
+  for(i=A.max(p[1]-~~(h/2),0);i<p[1]+~~(h/2);i++){
     S+='\n'
-    for(j=A.max(p[0]-V(w,2),0);j<p[0]+V(w,2);j++){
+    for(j=A.max(p[0]-~~(w/2),0);j<p[0]+~~(w/2);j++){
       e=' '
       for(k=1;k<D;k++)if(o(E[k],j,i))e=k
       S+=o(p,j,i)?'@':!M[i]?' ':M[i][j]?'#':e
